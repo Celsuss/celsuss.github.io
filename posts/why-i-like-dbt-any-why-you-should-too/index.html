@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head><title>Why i like dbt and why you should too &ndash; jens.lordén.dev</title>
+<meta name="description" content="Code, ML, MLOps, data and coffee
+">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="utf-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="celsuss.github.io/css/colour/gruvbox-dark.css">
+<link rel="stylesheet" href="celsuss.github.io/css/colour/dark-mode.css">
+<link rel="stylesheet" href="celsuss.github.io/css/risotto.css">
+<link rel="stylesheet" href="celsuss.github.io/css/custom.css">
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><h1 class="page__logo"><a href="celsuss.github.io" class="page__logo-inner">jens.lordén.dev</a></h1>
+<nav class="page__nav main-nav">
+    <ul>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item active" href="celsuss.github.io/posts/" title="Posts">Posts</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>Why i like dbt and why you should too</h1>
+    </header>
+    <div class="content__body">
+        <p>Dbt (or data build tool) transforms the way you work with sql, if you are
+someone like me that comes from a software engineering background then you will
+feel at home with the dbt workflow.
+So let&rsquo;s get to it, first what is dbt?</p>
+<p>Dbt is an open-source command line tool that helps analysts and engineers
+transform data in their warehouse more effectively.</p>
+<p>Ok this is what dbt is according to wikipedia, but lets try to get a little
+better understanding then that. When I&rsquo;m working with dbt it reminds me of
+working with a compiler, i write my dbt code, compile it into sql code and
+then i can execute my query or tests right from the terminal  using the dbt
+cli. But don&rsquo;t think that is all that dbt does, while the compiler
+is part of the core of what is dbt it&rsquo;s much more then just that.
+I also mentioned that I can run my compiled sql code in the terminal using dbt,
+this is another core part of what makes up dbt. by letting dbt compile and then
+run code it allows it to understand the dependencies between the different
+models and do powerful things like run the models in order of their
+dependencies. These are some of the things that i will mention in this article.</p>
+<h2 id="dbt-code">Dbt code</h2>
+<p>First lets talk about dbt code and what it is.
+Dbt code is simply put sql code combined with jinja and some extra
+features sprinkled on top of that.</p>
+<p>Using jinja together with sql will enable you to write things like loops and
+if statements which can be great tools when creating models.
+However it is those extra features which really let dbt shine.
+Probably the most important of these features is the <code>ref()</code> function.
+The <code>ref()</code> function reference other models in the dbt project
+and it lets you reference those model using only the model name (same as
+file name) without having to specify the database or schema.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span>
+  <span style="color:#f92672">*</span>
+<span style="color:#66d9ef">from</span> <span style="color:#960050;background-color:#1e0010">{{</span><span style="color:#66d9ef">ref</span>(<span style="color:#e6db74">&#39;model_name&#39;</span><span style="color:#960050;background-color:#1e0010">}}</span>
+</code></pre></div><p>Instead dbt let&rsquo;s you specify the database and schema in a config file.
+This makes it easy to change database and schema depending on if you
+are in a development environment or production environment.</p>
+<p>By letting dbt handle the references between different models it allows dbt
+to build a dependency graph during compilation of the dbt models.
+Using this dependency graph dbt can then run all the models in order of their
+dependencies.</p>
+<p>Another important function in dbt is the <code>source()</code> function.
+This function works similar to the <code>ref()</code> function except that it references
+a source table instead of another dbt model and just like the <code>ref()</code> function
+a .yaml config file define the sources.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">select</span>
+  <span style="color:#f92672">*</span>
+<span style="color:#66d9ef">from</span> <span style="color:#960050;background-color:#1e0010">{{</span><span style="color:#66d9ef">source</span>(<span style="color:#e6db74">&#39;source_name&#39;</span>, <span style="color:#e6db74">&#39;table_name&#39;</span>)<span style="color:#960050;background-color:#1e0010">}}</span>
+</code></pre></div><h2 id="profiles">Profiles</h2>
+<p>Before we start talking about the dbt cli i have to mention profiles which
+is only needed when using dbt cli and not if you are using dbt cloud (which
+I will not discuss in this article because honestly I have no experience
+using it).</p>
+<p>Dbt uses profiles and targets to know which data warehouse to connect to.
+Inside the file <code>profiles.yml</code> are the profiles and target defined and this
+file can either be inside the project directory or inside the <code>~/.dbt/</code>
+directory.</p>
+<p>The beauty with this is that you can reuse the same profile and
+<code>profiles.yml</code> file for projects that uses that same warehouses and you can
+use different targets depending on your environment.
+A typical workflow includes having at least one <code>dev</code> environment target and a
+<code>prod</code> environment target.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#f92672">profile_name</span>:              <span style="color:#75715e"># a profile</span>
+  <span style="color:#f92672">target</span>: <span style="color:#ae81ff">target_name     </span> <span style="color:#75715e"># defines the default target</span>
+  <span style="color:#f92672">outputs</span>:
+    <span style="color:#f92672">target_name</span>:           <span style="color:#75715e"># a target</span>
+      <span style="color:#f92672">type</span>: <span style="color:#ae81ff">&lt;bigquery | postgres | redshift | snowflake | other&gt;</span>
+      <span style="color:#f92672">schema</span>: <span style="color:#ae81ff">schema_name</span>
+      <span style="color:#f92672">database</span>: <span style="color:#ae81ff">database_name</span>
+      <span style="color:#f92672">account</span>: <span style="color:#ae81ff">account_name</span>
+      <span style="color:#f92672">role</span>: <span style="color:#ae81ff">role_name</span>
+      <span style="color:#f92672">user</span>: <span style="color:#ae81ff">user_name</span>
+      <span style="color:#f92672">password</span>: <span style="color:#ae81ff">very_secure_password</span>
+      <span style="color:#f92672">threads</span>: <span style="color:#ae81ff">4</span>
+      <span style="color:#f92672">warehouse</span>: <span style="color:#ae81ff">warehouse_name</span>
+      <span style="color:#75715e">### database-specific connection details</span>
+      <span style="color:#ae81ff">...</span>
+
+    <span style="color:#f92672">second_target_name</span>:    <span style="color:#75715e"># a second target</span>
+      <span style="color:#ae81ff">...</span>
+
+<span style="color:#f92672">second_profile_name</span>:       <span style="color:#75715e"># a second profile</span>
+...
+</code></pre></div><h2 id="materialization-strategies">Materialization strategies</h2>
+<p>Another great feature in dbt is that is supports four different materialization
+strategies. Materialization strategies tells dbt how it should handle
+persisting dbt models in your warehouses. Basically it tells dbt how it will
+build a model and what to do if the model already exists.
+The four strategies that dbt supports are <code>table</code>, <code>view</code>, <code>incremental</code> and
+<code>ephemeral</code>.</p>
+<h3 id="table">Table</h3>
+<p>This materialization strategy makes dbt build a <code>table</code>, overriding any
+existing table with the same name. A <code>table</code> is good because it is fast to
+query from, so any model that gets querried often, used by
+downstream models or if query latency is important.
+However it&rsquo;s important to remember that a <code>table</code> don&rsquo;t always
+represents the latest data from it&rsquo;s source because the source may have
+updated after the <code>table</code> got built.</p>
+<h3 id="view">View</h3>
+<p>In many ways a <code>view</code> is an opposite to a <code>table</code>, but let&rsquo;s start with what
+they have in common. Like a <code>table</code> a <code>view</code> is rebuilt entirely every time it
+run, it has no &ldquo;memory&rdquo; of previous runs. However how the <code>view</code> is different
+in that it don&rsquo;t store data in any storage, whenever it&rsquo;s querried it
+will build the <code>view</code>. This let&rsquo;s it always reflect the latest data from it&rsquo;s
+source by the cost of speed. Stacking  views on top of each other can
+take a long time to run so be careful with using <code>view</code> too often.</p>
+<h3 id="incremental">Incremental</h3>
+<p>Using the <code>incremental</code> materialization strategy will result in the model
+creating a <code>table</code> just like the <code>table</code> materialization strategy, however
+unlike <code>table</code> the <code>incremental</code> materialization strategy will not overwrite
+any existing table created by a model. It will instead either update
+existing rows or append new rows to the existing table.</p>
+<p>Because you are updating or appending to an existing table you don&rsquo;t have
+to transform old data that the model has already transformed.
+This can greatly increase the speed of your models because you don&rsquo;t have to
+process the same data more then once.</p>
+<p>However to be able to update rows in a table dbt needs to know which rows
+should update and which rows should append to the table.
+To do this we need to give each row a <code>unique_key</code> which can consist of
+one or more columns. How to pick the <code>unique_key</code> depends on the data but
+it&rsquo;s important that no column that is part of the <code>unique_key</code> has
+any null values.</p>
+<p>For example lets say we have a fruit store and at the end of every day we
+want to update a table with information about how much fruit we have sold.
+Let&rsquo;s say we have the columns <code>date</code>, <code>fruit_name</code> and <code>amount_sold</code>.
+In this case it makes sense to set the <code>unique_key</code> to be a combination of
+<code>date</code> and <code>fruit_name</code>, because we know for each day each <code>fruit_name</code> will
+be unique and each <code>date</code> will be unique because that is how dates work.</p>
+<table>
+<thead>
+<tr>
+<th>date</th>
+<th>fruit_name</th>
+<th>amount_sold</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2023-01-10</td>
+<td>Apple</td>
+<td>10</td>
+</tr>
+<tr>
+<td>2023-01-10</td>
+<td>Banana</td>
+<td>12</td>
+</tr>
+<tr>
+<td>2023-01-10</td>
+<td>Orange</td>
+<td>8</td>
+</tr>
+<tr>
+<td>2023-01-09</td>
+<td>Apple</td>
+<td>9</td>
+</tr>
+<tr>
+<td>2023-01-09</td>
+<td>Banana</td>
+<td>10</td>
+</tr>
+<tr>
+<td>2023-01-09</td>
+<td>Orange</td>
+<td>9</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ephemeral">Ephemeral</h3>
+<p>The <code>ephemeral</code> materialization strategy is a bit different from the previous
+strategies (to be honest I have not used this one myself).
+When using this materialization strategy no tables are actually built in the
+warehouse, in this way it&rsquo;s similar to a <code>view</code> however it&rsquo;s still possible to
+select from a <code>view</code> while it&rsquo;s not possible to select from the <code>ephemeral</code>
+model. Instead other dbt models that depends on the <code>ephemeral</code> model will use
+dbt to interpolate the <code>ephemeral</code> model as a common table expression in the
+dependent model.</p>
+<p>Using the <code>ephemeral</code> materialization strategy can be a great way to reduce
+clutter in your repository but be careful to not to overuse this strategy as it
+can make it  difficult to debug your code.</p>
+<h2 id="dbt-cli">Dbt cli</h2>
+<p>Now you should have some understanding of the benefits of using dbt and
+how you can write dbt code.
+Now I want to talk how to use dbt from the terminal to do things like
+compiling, testing and  running your dbt code. I mentioned earlier that
+functions like <code>ref()</code> is crusial to get the most out of dbt but if you don&rsquo;t
+use dbt cloud then the dbt cli is also crusial.</p>
+<h3 id="dbt-compile">DBT compile</h3>
+<p><code>DBT compile</code> is a dbt cli function that will compile your dbt code and output
+the compiled code (pure sql code) to the <code>target/</code> directory.
+This makes it much easier to debug the models, especially if you use a lot of
+jinja code or macros. It can also save you time while developing models
+because it gives you a quick feedback loop for any compile errors that may
+be in your dbt code. Because the compiling happens on your local machine
+you don&rsquo;t have to wait for the code to upload to wherever you run your
+models.</p>
+<p>The following is an example of the dbt code and how it looks after compilation.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span>
+  <span style="color:#f92672">*</span>
+<span style="color:#66d9ef">FROM</span> <span style="color:#960050;background-color:#1e0010">{{</span><span style="color:#66d9ef">ref</span>(<span style="color:#e6db74">&#39;model_name&#39;</span><span style="color:#960050;background-color:#1e0010">}}</span>
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#66d9ef">SELECT</span>
+  <span style="color:#f92672">*</span>
+<span style="color:#66d9ef">FROM</span> database_name.<span style="color:#66d9ef">schema_name</span>.model_name
+</code></pre></div><p>Another benefit of inspecting the compiled dbt code is that it allows you
+to copy the compiled code and execute it directly. This is  useful
+when debugging your models as it allows for a faster feedback loop.
+This is also the stage where dbt will generate the dependency graph
+(as long as you are using the <code>ref()</code> function which will allow dbt to run
+your models in order of their dependencies).</p>
+<figure><img src="https://d33wubrfki0l68.cloudfront.net/9d8cab47acfb342a89a1a0eb1ce22a45e34854c1/1673b/img/docs/terms/dag/mini_dag.png"
+         alt="Figure 1: example DAG, source https://docs.getdbt.com/terms/elt"/><figcaption>
+            <p><span class="figure-number">Figure 1: </span>example DAG, source <a href="https://docs.getdbt.com/terms/elt">https://docs.getdbt.com/terms/elt</a></p>
+        </figcaption>
+</figure>
+
+<h3 id="dbt-run">DBT run</h3>
+<p>Once you have your compiled dbt code it&rsquo;s time to run it and that is what
+the command <code>dbt run</code> does. However it is important to note that you do not
+need to run the <code>dbt compile</code> before running <code>dbt run</code>. <code>dbt run</code> will make
+sure that the models that you run compile, which includes not just
+compiling the dbt code but also building the dependency graph which
+determines the order that <code>dbt run</code> will run the models.
+Running <code>dbt run</code> without any arguments will tell dbt to run all your models
+in dependency order, however it&rsquo;s possible to tell dbt to only run specific
+models. This is done by providing the <code>--select</code> flag along
+to <code>dbt run</code>. This flag also needs an argument to specify which model(s)
+to select. The following examples show different ways to use the
+<code>--select</code> flag.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">dbt run --select my_dbt_project_name   <span style="color:#75715e"># runs all models in your project</span>
+dbt run --select my_dbt_model          <span style="color:#75715e"># runs a specific model</span>
+dbt run --select path.to.my.models     <span style="color:#75715e"># runs all models in a specific directory</span>
+dbt run --select my_package.some_model <span style="color:#75715e"># run a specific model in a specific package</span>
+dbt run --select tag:nightly           <span style="color:#75715e"># run models with the &#34;nightly&#34; tag</span>
+dbt run --select path/to/models        <span style="color:#75715e"># run models contained in path/to/models</span>
+dbt run --select path/to/my_model.sql  <span style="color:#75715e"># run a specific model by its path</span>
+</code></pre></div><ul>
+<li>Source: <a href="https://docs.getdbt.com/reference/node-selection/syntax">https://docs.getdbt.com/reference/node-selection/syntax</a></li>
+</ul>
+<p>Finally there is one more flag that I want to mention and that is the
+<code>--full-refresh</code> flag. As discussed earlier dbt supports
+different materialization strategies. Imagine you are using the <code>incremental</code>
+materialization strategy but while developing maybe you want to
+rebuild the entire <code>table</code> instead of updating or appending the <code>table</code>.
+You could manually delete the table and then use <code>dbt run</code> to re-create the
+<code>table</code>. This works fine but dbt offers a better solution, when using the
+<code>--full-refresh</code> flag you tell dbt that it should first delete the table
+before building a new table, even if you are using the <code>incremental</code>
+materialization strategy.</p>
+<h3 id="dbt-test">DBT test</h3>
+<p>In the beginning I mentioned that you can use dbt cli to run your model
+tests and while I have not mentioned how testing works with dbt I will
+now talk about how to run your tests.
+I will talk more about specific dbt tests further down in this article,
+here I will just talk about how to run your tests from using dbt cli.
+Once you have defined your tests for your dbt models you can run the tests
+using their command <code>dbt test</code>. This works similar to how the <code>dbt run</code>
+command works, just running the <code>dbt test</code> command with no flags will make dbt
+run every test in your project. However just as the <code>dbt run</code> command
+you can add the <code>--select</code> flag to specify which tests that you want to run.
+The following examples show how to run <code>dbt test</code> with different flags.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sh" data-lang="sh">dbt test --select one_specific_model                       <span style="color:#75715e"># run tests for one_specific_model</span>
+dbt test --select some_package.*                           <span style="color:#75715e"># run tests for all models in package</span>
+dbt test --select test_type:singular                       <span style="color:#75715e"># run only tests defined singularly</span>
+dbt test --select test_type:generic                        <span style="color:#75715e"># run only tests defined generically</span>
+dbt test --select one_specific_model,test_type:singular    <span style="color:#75715e"># run singular tests limited to one_specific_model</span>
+dbt test --select one_specific_model,test_type:generic     <span style="color:#75715e"># run generic tests limited to one_specific_model</span>
+</code></pre></div><ul>
+<li>Source: <a href="https://docs.getdbt.com/reference/commands/test">https://docs.getdbt.com/reference/commands/test</a></li>
+</ul>
+<h3 id="dbt-build">DBT build</h3>
+<p>The last command I want to mention is the <code>dbt build</code> command. This command
+don&rsquo;t really do anything new that any previous command does.
+However what it does is to combine the functionality of the commands
+<code>dbt compile</code>, <code>dbt run</code> and <code>dbt test</code>. Meaning that when using the
+<code>dbt build</code> command you tell dbt to compile the code, run the models
+and run the tests.
+It also supports the same flags as some previous commands, the most important
+flags is  the <code>--select</code> and <code>-full-refresh</code> flags that I have
+mentioned earlier.</p>
+<h2 id="tests">Tests</h2>
+<p>Now it&rsquo;s finally time to discuss how to actually create tests in dbt.
+Dbt supports two different kinds of tests, singular tests and generic tests.
+Singular tests are tests that created for a specific model,
+This allows you to custom tailor the test for a specific model letting
+you test specific logic for that model.
+To reference which model to test you use the <code>ref()</code> function that I have
+mentioned earlier. The following is an example of a singular test.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#75715e">-- Refunds have a negative amount, so the total amount should always be &gt;= 0.
+</span><span style="color:#75715e">-- Therefore return records where this isn&#39;t true to make the test fail
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">select</span>
+    order_id,
+    <span style="color:#66d9ef">sum</span>(amount) <span style="color:#66d9ef">as</span> total_amount
+<span style="color:#66d9ef">from</span> <span style="color:#960050;background-color:#1e0010">{{</span> <span style="color:#66d9ef">ref</span>(<span style="color:#e6db74">&#39;fct_payments&#39;</span> )<span style="color:#960050;background-color:#1e0010">}}</span>
+<span style="color:#66d9ef">group</span> <span style="color:#66d9ef">by</span> <span style="color:#ae81ff">1</span>
+<span style="color:#66d9ef">having</span> <span style="color:#66d9ef">not</span>(total_amount <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span>)
+</code></pre></div><ul>
+<li>source: <a href="https://docs.getdbt.com/docs/build/tests">https://docs.getdbt.com/docs/build/tests</a></li>
+</ul>
+<p>The other kind of tests that dbt supports are the generic tests and these
+tests can be a little more interesting because these are tests that can
+run on any model.
+Because these tests can run on any model in your project they need to be
+generic (as the name implies). An example for a generic test can be to make
+sure that a column contains no <code>null</code> values. To run a test like this
+you need two parameters, the model name and column name to run the test on.
+But once the test is created it can be used for any number of models
+and columns. Here is an example of a generic test.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-sql" data-lang="sql"><span style="color:#960050;background-color:#1e0010">{</span><span style="color:#f92672">%</span> test not_null(model, <span style="color:#66d9ef">column_name</span>) <span style="color:#f92672">%</span><span style="color:#960050;background-color:#1e0010">}</span>
+    <span style="color:#66d9ef">select</span> <span style="color:#f92672">*</span>
+    <span style="color:#66d9ef">from</span> <span style="color:#960050;background-color:#1e0010">{{</span> model <span style="color:#960050;background-color:#1e0010">}}</span>
+    <span style="color:#66d9ef">where</span> <span style="color:#960050;background-color:#1e0010">{{</span> <span style="color:#66d9ef">column_name</span> <span style="color:#960050;background-color:#1e0010">}}</span> <span style="color:#66d9ef">is</span> <span style="color:#66d9ef">null</span>
+<span style="color:#960050;background-color:#1e0010">{</span><span style="color:#f92672">%</span> endtest <span style="color:#f92672">%</span><span style="color:#960050;background-color:#1e0010">}</span>
+</code></pre></div><ul>
+<li>source: <a href="https://docs.getdbt.com/docs/build/tests">https://docs.getdbt.com/docs/build/tests</a></li>
+</ul>
+<p>Some of these generic tests are common when testing your models,
+because of this dbt ships with some generic test already built in to dbt.
+These are tests that you will probably use on all of your dbt models
+together with your singular tests for your models.
+The following is descriptions of these different out of the box tests.</p>
+<h3 id="out-of-the-box-tests">Out of the box tests</h3>
+<h4 id="unique">unique</h4>
+<p>The first out of the box test in dbt that I will talk about is <code>unique</code>
+which ensures that there are no duplicate rows in the dataset.
+This test take column names as a input and makes sure that each row has an
+unique combination of the given columns.
+This test is  important if you are using the <code>incremental</code> materialization
+strategy since it requires each row to have a unique key combination.</p>
+<p>Let&rsquo;s say you have a model that runs every day, it reads from
+sources and calculates how much each customer has spent for the given day.
+In this example you probably want a unique identifier for the customer
+together with the data to be a unique combination. Because each row tells
+how much a customer has spend we don&rsquo;t want two rows with the same
+customer on the same day.</p>
+<h4 id="not-null">not_null</h4>
+<p>Another test we will talk about is the <code>not_null</code> test.
+This test will check if the specified columns contains any null values.
+If you have any columns that should never be null, just add this test.
+Just like the <code>unique</code> test this test works well together with the
+<code>incremental</code> materialization strategy because each column in the
+unique key has to have a value that is not null.</p>
+<p>This tests works well together with the <code>unique</code> test, lets think
+back to the previous example that tests to make sure that each customer
+only appears once every day. Imagine if the date or the customer identifier
+is <code>null</code>, then the <code>unique</code> test will eventually start failing once there
+are rows with these <code>null</code> values. So adding the <code>not_null</code> tests
+for the column you use to get the <code>unique</code> combinations is highly recommended.</p>
+<h4 id="accepted-values">accepted_values</h4>
+<p>The test <code>acceptable_values</code> is similar to the <code>not_null</code> test. It takes a
+column name and an array of the acceptable values and makes sure that the
+all rows inside the specified column has acceptable values.
+An example would be if you have a model that calculates how fast the car
+has driven for a given day. In this case you probably want to make sure
+that no car is moving faster then 299,792,458 m/s (the speed of light)
+or that it&rsquo;s moving in a negative speed.</p>
+<h4 id="relationships">relationships</h4>
+<p>The final out of the box test I will discuss is <code>relationships</code>.
+This test validate the relationships between different models.
+So let&rsquo;s again go back to our customer example, when reading from the
+customer identifiers from source tables we can use the <code>relationships</code>
+test to make sure that each customer id in the source table exists in the model.
+This way you can make sure that your model don&rsquo;t miss any customers.</p>
+<h2 id="documentation">Documentation</h2>
+<p>The last thing that I want to mention is how dbt can help you generate
+a static documentation site for your models. Dbt automatically generates
+information about your models such as a DAG showing your model dependencies,
+columns, column types, table size and more.
+But besides the information automatically generated by dbt you can add your own
+descriptions to both columns and tables. This can greatly help the consumers
+if these models to understand them better.</p>
+<p>To generate this documentation just run the command <code>dbt docs generate</code>,
+but make sure that you use <code>dbt run</code> before generating the documentation
+to be sure you get all the information about your models.
+Dbt also comes with the command <code>dbt docs serve</code> to help you try out your
+documentation locally. However it&rsquo;s recommended to deploy the documentation
+using a CI/CD pipeline, so the documentation always gets updated when new
+changes gets pushed to production.
+To deploy our documentation at Tele2 we uses CI/CD to deploy our model
+documentation to GitLab pages.</p>
+<figure><img src="https://d33wubrfki0l68.cloudfront.net/5bb75782aa4e0566fad9d22a647fedf8f3350c4a/8be0d/img/docs/building-a-dbt-project/dbt-docs-screenshot.png"
+         alt="Figure 2: example documentation, source https://docs.getdbt.com/terms/elt"/><figcaption>
+            <p><span class="figure-number">Figure 2: </span>example documentation, source <a href="https://docs.getdbt.com/terms/elt">https://docs.getdbt.com/terms/elt</a></p>
+        </figcaption>
+</figure>
+
+<h2 id="conclusion">Conclusion</h2>
+<p>There are a lot of features that I have barely mentioned and some that I have
+not mentioned at all, but this article is getting longer and longer and
+I feel I could keep writing forever. Hopefully you now have some understanding
+of what dbt is and how you can use it in your projects.
+DBT comes with plenty of great features that once you use them you will not
+want to go back to not using them.
+I will end with a short summary of my favorite features in dbt that I have
+mentioned in this article.</p>
+<ul>
+<li>The workflow reminds me more of traditional software development using
+the cli.</li>
+<li>I can configure profiles to setup connections to my warehouses across
+multiple projects.</li>
+<li>Using the <code>ref()</code> and <code>source()</code> functions makes it easy to reference
+other tables inside and outside your dbt projects.</li>
+<li>Easy to setup different materialization strategies for your models.</li>
+<li>Comes with some  handy out of the box tests, especially if you
+are the incremental materialization strategy.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li>[1] <a href="https://docs.getdbt.com/reference/node-selection/syntax">https://docs.getdbt.com/reference/node-selection/syntax</a></li>
+<li>[2] <a href="https://docs.getdbt.com/reference/commands/test">https://docs.getdbt.com/reference/commands/test</a></li>
+<li>[3] <a href="https://docs.getdbt.com/docs/build/tests">https://docs.getdbt.com/docs/build/tests</a></li>
+</ul>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+<h1 class="about__title">Jens Lordén</h1>
+<p class="about__description">Code, ML, MLOps, data and coffee</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://github.com/celsuss" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:jenslorden@gmail.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/jens-lorden/" rel="me" aria-label="Linked In" title="Linked In"><i class="fab fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.instagram.com/jenslorden" rel="me" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://medium.com/@jenslorden" rel="me" aria-label="Medium" title="Medium"><i class="fab fa-medium" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            By [Jens], 
+            2023-03-28
+        </p>
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p class="copyright"></p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

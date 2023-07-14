@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Index on jens.lordén.dev</title>
+    <link>celsuss.github.io/</link>
+    <description>Recent content in Index on jens.lordén.dev</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 22 Apr 2023 00:00:00 +0200</lastBuildDate><atom:link href="celsuss.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Blog index</title>
+      <link>celsuss.github.io/blog-index/</link>
+      <pubDate>Sat, 22 Apr 2023 00:00:00 +0200</pubDate>
+      
+      <guid>celsuss.github.io/blog-index/</guid>
+      <description>Index Hello, and welcome to my corner on the internet. My name is Jens Lordén and I am a software engineer/ML Engineer/MLOps Enineer/Game developer located in Stockholm, Sweden.
+I currently work as a MLOps Engineer at Tele2, formerly a machine learning engineer formerly a game developer.</description>
+    </item>
+    
+    <item>
+      <title>Why i like dbt and why you should too</title>
+      <link>celsuss.github.io/posts/why-i-like-dbt-any-why-you-should-too/</link>
+      <pubDate>Tue, 28 Mar 2023 00:00:00 +0200</pubDate>
+      
+      <guid>celsuss.github.io/posts/why-i-like-dbt-any-why-you-should-too/</guid>
+      <description>Dbt (or data build tool) transforms the way you work with sql, if you are someone like me that comes from a software engineering background then you will feel at home with the dbt workflow. So let&amp;rsquo;s get to it, first what is dbt?
+Dbt is an open-source command line tool that helps analysts and engineers transform data in their warehouse more effectively.
+Ok this is what dbt is according to wikipedia, but lets try to get a little better understanding then that.</description>
+    </item>
+    
+  </channel>
+</rss>
