@@ -2,20 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>celsuss.github.io/blog-index/</loc>
+    <loc>/blog-index/</loc>
     <lastmod>2023-04-22T00:00:00+02:00</lastmod>
   </url><url>
-    <loc>celsuss.github.io/</loc>
+    <loc>/</loc>
     <lastmod>2023-04-22T00:00:00+02:00</lastmod>
   </url><url>
-    <loc>celsuss.github.io/posts/</loc>
+    <loc>/posts/</loc>
     <lastmod>2023-03-28T00:00:00+02:00</lastmod>
   </url><url>
-    <loc>celsuss.github.io/posts/why-i-like-dbt-any-why-you-should-too/</loc>
+    <loc>/posts/why-i-like-dbt-any-why-you-should-too/</loc>
     <lastmod>2023-03-28T00:00:00+02:00</lastmod>
   </url><url>
-    <loc>celsuss.github.io/categories/</loc>
+    <loc>/categories/</loc>
   </url><url>
-    <loc>celsuss.github.io/tags/</loc>
+    <loc>/tags/</loc>
   </url>
 </urlset>
