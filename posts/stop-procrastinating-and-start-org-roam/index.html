@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+<title>Stop procrastinating and start org-roam &ndash; jens.lordén.dev</title>
+<meta name="description" content="Code, ML, MLOps, data and coffee
+">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="/css/colour/gruvbox-dark.css">
+<link rel="stylesheet" href="/css/colour/dark-mode.css">
+<link rel="stylesheet" href="/css/risotto.css">
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DNCM5J4M6F"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-DNCM5J4M6F', { 'anonymize_ip': false });
+}
+</script>
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><h1 class="page__logo"><a href="/" class="page__logo-inner">jens.lordén.dev</a></h1>
+<nav class="page__nav main-nav">
+    <ul>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item active" href="/posts/" title="Posts">Posts</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>Stop procrastinating and start org-roam</h1>
+    </header>
+    <div class="content__body">
+        <p>I didn&rsquo;t use to like taking notes but now I like it.
+When reading something interesting in a book I will take a pause, write
+it down, or if I encounter a bug while programming I will document how I
+solved this bug
+.
+The thought is that if I can organize all my knowledge into a &ldquo;second brain&rdquo;
+then that will allow me to be more productive.</p>
+<p>However I did not end up being more productive, in fact I suddenly got even
+less stuff done because I spent too much time writing and organizing my notes.
+Years later I finally have a note taking system that works well for me and is
+actually useful in my day to day life.</p>
+<h2 id="my-old-wishlist">My old wishlist</h2>
+<p>When I started my search for a note taking software I didn&rsquo;t have a lot
+requirements, some of the features I wanted was.</p>
+<ul>
+<li>Sync my notes between machines</li>
+<li>Organize my notes in different hierarchy</li>
+<li>Kanban board support</li>
+</ul>
+<h2 id="what-i-tried">What I tried</h2>
+<h3 id="notion">Notion</h3>
+<p>The first app that I tried for note taking was Notion which at first I was
+happy with it. I used Notion for a couple of months, spent tons of hours
+making sure everything looked just how I wanted it to, which I succeeded with.</p>
+<figure><img src="https://www.notion.so/cdn-cgi/image/format=webp,width=3840,quality=90/front-static/pages/home/engineering-wiki-V2.png"
+         alt="Figure 1: Notion dashboard example"/><figcaption>
+            <p><span class="figure-number">Figure 1: </span>Notion dashboard example</p>
+        </figcaption>
+</figure>
+
+<p>However I soon started to encounter problems that I could just not accept,
+pages were loading slowly and sometimes would not load at all.
+Even though I enjoyed not having to sync my notes between devices because
+it was always online I came to conclude that I need something to run locally
+on my devices.</p>
+<h4 id="pros">Pros</h4>
+<ul>
+<li>Customizable to look really cool</li>
+<li>Always online so syncing between machines is no problem</li>
+<li>Community made templates</li>
+</ul>
+<h4 id="cons">Cons</h4>
+<ul>
+<li>Can sometimes be slow</li>
+<li>Sometimes some pages won&rsquo;t load</li>
+<li>Navigation between pages is not as smooth as it could be</li>
+<li>Always online, what if I lose internet?</li>
+</ul>
+<h3 id="obsidian">Obsidian</h3>
+<p>Another app that I had heard a lot about at the time was Obsidian. It was often
+mentioned as an offline alternative to Notion. This sounded great to me because
+I hated the latency and other problems that came with Notion always being
+online.
+Another benefit with this was that Obsidian supports community created plugins,
+and there is a lot of them.</p>
+<p>At first I was happy with Obsidian, it fixed a lot of the problems that I had
+with Notion, having all my files locally on computer is great because
+it decreases the latency and the files are in markdown format so even if
+I were to stop using Obsidian in the future I can still use my markdown
+files in other applications.
+This makes Obsidian future proof (or at least the notes written in
+Obsidian is future proof) which Notion is not.</p>
+<figure><img src="https://techwiser.com/wp-content/uploads/2021/05/obsidian-interface.jpg"
+         alt="Figure 2: Obsidian example"/><figcaption>
+            <p><span class="figure-number">Figure 2: </span>Obsidian example</p>
+        </figcaption>
+</figure>
+
+<p>Because the files are not automatically synced to the cloud I needed another
+solution. Obsidian does support cloud sync however it cost 8$ a month but
+I can solve that for free.</p>
+<p>I decided to go with git to sync my notes.
+This comes with some benefits and disadvantages, the disadvantages is that
+I need to manually commit my changes. I do this when writing code so I find
+it acceptable, it takes a couple of seconds at the end of the day.</p>
+<p>But the benefits of using git to sync my notes is actually substantial,
+because git is not just a tool for syncing but it&rsquo;s a version control system.
+So using git allows me to revisit the history of my notes.</p>
+<h4 id="pros">Pros</h4>
+<ul>
+<li>Not always online, so no problem if I lose internet and lower latency</li>
+<li>Lots of community plugins</li>
+<li>Customizable to look really cool, but not as easily as in Notion</li>
+<li>Plain text file format which is future proof to work with other
+applications</li>
+</ul>
+<h4 id="cons">Cons</h4>
+<ul>
+<li>Built in syncing cost 8$ a month</li>
+<li>Built using Electron (I won&rsquo;t go in to why I don&rsquo;t like Electron in
+this blog post)</li>
+</ul>
+<h3 id="one-last-problem">One last problem</h3>
+<p>There is one other problem that Notion and Obisian share, and it&rsquo;s a subjective
+opinion that I have (but I bet I could convince you objectively).
+That is that I hate the normal windows keybindings and prefer the emacs
+keybindings. In fact I have a general dislike of having to use the mouse
+in my workflow.</p>
+<p>So after all of these problems I came up with a new wishlist.</p>
+<h2 id="my-new-wishlist">My new wishlist</h2>
+<ul>
+<li>Emacs keybindings</li>
+<li>Mouse not needed</li>
+<li>Sync my notes between machines</li>
+<li>Speed</li>
+<li>Self hosted</li>
+<li>Kanban board support</li>
+<li>Zettelkasten method</li>
+<li>Future-proof</li>
+<li>Plain text files</li>
+<li>Open source</li>
+</ul>
+<h2 id="what-i-found">What I found</h2>
+<p>After testing these alternatives my list of desired features kept increasing
+and I got less and less happy with using Obsidian.
+Also around this time I started using emacs as my IDE instead of VS Code,
+while playing around with different emacs packages I came across org-mode and
+org-roam. This seemed to be the answer to all of my note taking problems.</p>
+<h3 id="org-mode">Org-mode</h3>
+<p>Org-mode is the go-to note taking package in emacs.
+Just like Obsidian org-mode uses plain text files, however where Obisian uses
+.md files org-mode uses .org files. Both of these formats use
+plain text so it&rsquo;s easy to convert between the different formats.
+There are plenty of tools you can find online to convert between .md and .org.</p>
+<figure><img src="https://i.imgur.com/DMhVdJB.png"
+         alt="Figure 3: Org agenda screenshot"/><figcaption>
+            <p><span class="figure-number">Figure 3: </span>Org agenda screenshot</p>
+        </figcaption>
+</figure>
+
+<p>If you want to learn more about org-mode I strongly recommend Carsten Dominiks
+(creating of org-mode) talk at google techtalks here
+<a href="https://www.youtube.com/watch?v=oJTwQvgfgMM">Carsten Dominiks on org-mode at google techtalks</a>.</p>
+<h4 id="future-proof-data-not-tools">Future proof data, not tools</h4>
+<p>When I switched from Notion to Obsidian there was no easy way for me to transfer
+my notes from Notion to Obsidian, but because both Obsidian and Org mode uses
+plain text files I only had to find a script that could convert my .md files
+into .org files. This demonstrates why it&rsquo;s good to keep all your notes
+in plain text files. Because even though I stopped using Obisian my notes
+did not become obsolete.</p>
+<p>Here is an example showing how to create a header with some text and
+a sub heading with text in both markdown and org.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown"># Heading
+The above is a markdown heading and this is normal text.
+<span style="color:#75715e">## Sub heading
+</span><span style="color:#75715e"></span>The above is a markdown sub-heading.
+</code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">*<span style="font-weight:bold"> Heading</span>
+The above is a markdown heading and this is normal text.
+<span style="color:#75715e">**</span> Sub heading
+The above is a markdown sub-heading.
+</code></pre></div><h4 id="syncing">Syncing</h4>
+<p>I still use git to sync my notes between devices just like I did in Obsidian.
+I have been playing with the thought of automatically syncing my notes using
+Nextcloud which I host in my home lab.
+However I don&rsquo;t want to lose the version control features that git is providing
+me as well as file history.
+Also because I use emacs I can use the emacs package magit which is a
+great package to manage git.</p>
+<h4 id="org-agenda-and-todo-or-not-todo">Org agenda and TODO or not TODO</h4>
+<p>One of the strengths with org-mode is how easy it is to convert plain text
+into TODOs. To create a TODO you just have to add the text &lsquo;TODO&rsquo; to the
+start of a heading.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">*<span style="color:#960050;background-color:#1e0010"> TODO</span><span style="font-weight:bold"> Write blog post why dbt is awesome</span>
+</code></pre></div><p>It&rsquo;s also possible to set deadlines and tags to the TODOs.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org">*<span style="color:#960050;background-color:#1e0010"> TODO</span><span style="font-weight:bold"> Write blog post why dbt is awesome &lt;2023-08-11 Wed&gt;       :tag:</span>
+</code></pre></div><p>So now you have a couple of org-mode documents with TODOs scattered around
+these files and you want some way to see all your TODOs. This is what
+org-agenda is for, it provides an overview of all your TODO entries
+and list them in a window (buffer in emacs).</p>
+<figure><img src="https://orgmode.org/worg/images/dto/tutorial-16.png"
+         alt="Figure 4: Org agenda screenshot"/><figcaption>
+            <p><span class="figure-number">Figure 4: </span>Org agenda screenshot</p>
+        </figcaption>
+</figure>
+
+<h4 id="emacs-keybindings">Emacs keybindings</h4>
+<p>Using org mode inside of Emacs solves the problem with not using the emacs
+keybindings, if you don&rsquo;t like emacs keybindings then it&rsquo;s also possible to use
+evil mode in emacs to get vim style keybindings.
+I won&rsquo;t go in to why I prefer emacs keybindings in this post but to be able
+to use the same keybindings when coding and writing makes life much easier.</p>
+<h4 id="pros">Pros</h4>
+<ul>
+<li>Store files locally on device</li>
+<li>Plain text file format (.org)</li>
+<li>Emacs or vim keybindings</li>
+<li>Highly customizable</li>
+<li>Open source</li>
+<li>Fast</li>
+<li>Packages to add functionality</li>
+<li>Easy to manage and track todos.</li>
+</ul>
+<h4 id="cons">Cons</h4>
+<ul>
+<li>Need to manually sync notes between devices</li>
+</ul>
+<h3 id="org-roam">Org-roam</h3>
+<p>For me org-mode is not really complete without org-roam.
+Org-roam amplifies org-mode by adding features from <a href="https://roamresearch.com/">Roam</a> to org-mode.
+Org-roam uses the Zettelkasten method for note taking, that is structuring
+notes in a non-hierarchical way and instead use links between notes
+to connect them.</p>
+<p>Storing files in a hirarchy seems great at first, in fact that was a
+feature that I had on my first wish list, but as your notes keep
+growing it soon becomes unmanageable. Lets take a look at an example,
+imagine we have the following hirarchy of notes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">/notes/
+  /emacs/
+    /org-mode/
+      org-note-1.org
+      org-note-2.org
+  /blog-posts/
+    blog-post-1.org
+    blog-post-2.org
+</code></pre></div><p>This hirarchy may seem fine at first, but where should I put this blog post?
+It is a blog post so it certainly fits under <em>blog-posts</em> but it&rsquo;s also about
+org-mode so it could also fit under <em>emacs/org-mode</em>.
+Because of this I decided that a file hirarchy was not working for me.</p>
+<p>So how does org-roam solve this?
+Start by replacing each folder with a .org file and give it a title and id.
+Because org-roam uses links to connect notes we need files to link to,
+so now our blog post can link to both org-mode.org and blog-posts.org.</p>
+<p>If you want to find all the files that link to org-mode.org then you
+open that file and open the org-roam-buffer using <code>M-m a o r l</code> or
+<code>org-roam-buffer-toggle</code> to see all the backlinks.</p>
+<h4 id="linking-between-notes">Linking between notes</h4>
+<p>As I said previously org-roam uses links between notes to organize them and
+while it&rsquo;s possible to link to other files like this <code>[[LINK][DESCRIPTION]]</code>
+where &lsquo;LINK&rsquo; is the path to the file.
+However this is not how org-roam wants you to link between files.
+Org-roam creates a database to keep track of all your files and links between
+them and any links between files that made using the file path will be
+ignore when building the database.
+Instead org-roam uses unique ids to identify each file which is added
+as a property to each file.</p>
+<h4 id="note-taking-templates">Note taking templates</h4>
+<p>Org-roam also makes it much easier to create new notes using capture templates
+which lets you create templates for creating new notes.
+(If not using the org-roam capture templates to create notes you can also
+use <code>C-c n I</code> (or <code>M-x org-id-get-create</code>)in emacs to add id to a file.</p>
+<p>The following is an example of the most basic org-roam file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">:PROPERTIES:
+</span><span style="color:#75715e"></span><span style="color:#75715e">:ID:       3934f8da-567b-4b88-848d-c03f9d9ba356
+</span><span style="color:#75715e"></span><span style="color:#75715e">:END:</span>
+<span style="color:#75715e">#+title</span><span style="color:#75715e">: Note title</span>
+</code></pre></div><p>However you can configure the capture templates to add even more information
+such as author and date, the following is an example of a org-roam file
+created with a little more advances capture template.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-org" data-lang="org"><span style="color:#75715e">:PROPERTIES:
+</span><span style="color:#75715e"></span><span style="color:#75715e">:ID:       3934f8da-567b-4b88-848d-c03f9d9ba356
+</span><span style="color:#75715e"></span><span style="color:#75715e">:END:</span>
+<span style="color:#75715e">#+title</span><span style="color:#75715e">: Note title</span>
+<span style="color:#75715e">#+author</span><span style="color:#75715e">: Jens</span>
+<span style="color:#75715e">#+date</span><span style="color:#75715e">: &lt;2023-08-15 Tue&gt;</span>
+</code></pre></div><p>This is all great but there is one more reason why creating your notes using
+org-roam is more convenient then manually creating the file.
+It&rsquo;s a small detail but org-roam keeps all the files in one folder,
+so when you use org-roam to create your notes they are automatically places
+inside the correct folder.
+This is helpful because no matter what project you have open in emacs you can
+create a note and you know it will be places correctly next to your other org
+files.</p>
+<h3 id="additional-packages">Additional packages</h3>
+<p>There are plenty of more emacs packages made to supercharge org-mode.
+I will list some of the ones that I think is useful.</p>
+<h4 id="org-super-agenda">org-super-agenda</h4>
+<p>Org-super-agenda lets you customize the agenda buffer (window in emacs),
+I use this to have different org-agenda buffers for work and my personal life.
+I also sort all of my todos based on their tags.</p>
+<figure><img src="https://raw.githubusercontent.com/alphapapa/org-super-agenda/master/images/screenshots/screenshot-after.png"
+         alt="Figure 5: Org-super-agenda screenshot"/><figcaption>
+            <p><span class="figure-number">Figure 5: </span>Org-super-agenda screenshot</p>
+        </figcaption>
+</figure>
+
+<h4 id="org-roam-ui">org-roam-ui</h4>
+<p>While not something that I use daily as the other org-roam packages the
+org-roam-ui package is really useful to get a cool overview of your
+org-roam notes.
+The package creates a web server that you can connect to in the browser
+and it shows a graph of all your notes and their connections.</p>
+<figure><img src="https://user-images.githubusercontent.com/21983833/136942774-3f293f65-dbd4-4479-b530-1fde738c5289.png"
+         alt="Figure 6: Org-roam-ui screenshot"/><figcaption>
+            <p><span class="figure-number">Figure 6: </span>Org-roam-ui screenshot</p>
+        </figcaption>
+</figure>
+
+<h2 id="honorable-mentions">Honorable mentions</h2>
+<h3 id="anytype-dot-io">anytype.io</h3>
+<p>Recently I found an open source alternative to Notion called anytype,
+it&rsquo;s similar to Notion except that it seems to fix a lot of the problems
+that I have had with Notion. With anytype you have all your files on your
+local device but can sync between devices using peer-to-peer.
+If Notion seems interesting to you that I would recommend to try out anytype
+first.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>I have tried different note taking applications but emacs with org-mode and
+org-roam is when i first found something that can actually make me more
+productive instead of spending too much time organizing my notes and making
+my notes look good.
+It allows me to easily create new notes and TODOs and organize them in
+a customizable dashboard.
+Because it&rsquo;s in emacs it also let me do everything just using keybindings.</p>
+<p>This post is written in org-mode and org-roam using ox-hugo to convert from
+.org to .md and later converting the markdown file to html.</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+<h1 class="about__title">Jens Lordén</h1>
+<p class="about__description">Code, ML, MLOps, data and coffee</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://github.com/celsuss" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:jenslorden@gmail.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/jens-lorden/" rel="me" aria-label="Linked In" title="Linked In"><i class="fab fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.instagram.com/jenslorden" rel="me" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://medium.com/@jenslorden" rel="me" aria-label="Medium" title="Medium"><i class="fab fa-medium" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            By [Jens], 
+            2023-08-20
+        </p>
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p class="copyright"></p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>

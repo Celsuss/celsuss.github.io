@@ -2,19 +2,26 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>/posts/</loc>
+    <lastmod>2023-08-20T00:00:00+02:00</lastmod>
+  </url><url>
+    <loc>/posts/stop-procrastinating-with-note-taking-and-start-org-roam/</loc>
+    <lastmod>2023-08-20T00:00:00+02:00</lastmod>
+  </url><url>
+    <loc>/posts/why-i-like-dbt-any-why-you-should-too/</loc>
+    <lastmod>2023-07-18T00:00:00+02:00</lastmod>
+  </url><url>
     <loc>/blog-index/</loc>
     <lastmod>2023-04-22T00:00:00+02:00</lastmod>
   </url><url>
     <loc>/</loc>
     <lastmod>2023-04-22T00:00:00+02:00</lastmod>
   </url><url>
-    <loc>/posts/</loc>
-    <lastmod>2023-03-28T00:00:00+02:00</lastmod>
-  </url><url>
-    <loc>/posts/why-i-like-dbt-any-why-you-should-too/</loc>
-    <lastmod>2023-03-28T00:00:00+02:00</lastmod>
-  </url><url>
     <loc>/categories/</loc>
+  </url><url>
+    <loc>/main/</loc>
+  </url><url>
+    <loc>/series/</loc>
   </url><url>
     <loc>/tags/</loc>
   </url>
