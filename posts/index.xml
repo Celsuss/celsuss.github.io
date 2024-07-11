@@ -6,7 +6,16 @@
     <description>Recent content in Posts on jens.lordén.dev</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 20 Aug 2023 00:00:00 +0200</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 24 Jan 2024 23:27:00 +0100</lastBuildDate><atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My thoughts on switching to vim bindings</title>
+      <link>/posts/my-initial-thoughts-after-swtiching-to-vim-motions/</link>
+      <pubDate>Wed, 24 Jan 2024 23:27:00 +0100</pubDate>
+      
+      <guid>/posts/my-initial-thoughts-after-swtiching-to-vim-motions/</guid>
+      <description>Even though I have been using spacemacs as my daily driver for coding and writing blog posts like this one I have been using the traditional emacs keybindings. Going from &amp;ldquo;normal&amp;rdquo; keybindings to emacs felt like a great productivity boost, this made me wonder if maybe there is an even better option. Enter vim keybindings, in this post I will explain my experience switching to vim keybindings and what my thoughts are about it.</description>
+    </item>
+    
     <item>
       <title>Stop procrastinating with note taking and start org-roam</title>
       <link>/posts/stop-procrastinating-with-note-taking-and-start-org-roam/</link>

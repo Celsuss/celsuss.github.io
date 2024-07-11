@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+<title>My thoughts on switching to vim bindings &ndash; jens.lordén.dev</title>
+<meta name="description" content="Code, ML, MLOps, data and coffee
+">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8"/>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.9.1/css/academicons.min.css" integrity="sha512-b1ASx0WHgVFL5ZQhTgiPWX+68KjS38Jk87jg7pe+qC7q9YkEtFq0z7xCglv7qGIs/68d3mAp+StfC8WKC5SSAg==" crossorigin="anonymous" />
+
+
+<link rel="stylesheet" href="/css/colour/gruvbox-dark.css">
+<link rel="stylesheet" href="/css/colour/dark-mode.css">
+<link rel="stylesheet" href="/css/risotto.css">
+<link rel="stylesheet" href="/css/custom.css">
+
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-DNCM5J4M6F"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-DNCM5J4M6F', { 'anonymize_ip': false });
+}
+</script>
+</head>
+
+    <body>
+        <div class="page">
+
+            <header class="page__header"><h1 class="page__logo"><a href="/" class="page__logo-inner">jens.lordén.dev</a></h1>
+<nav class="page__nav main-nav">
+    <ul>
+    
+    
+    <li class="main-nav__item"><a class="nav-main-item active" href="/posts/" title="Posts">Posts</a></li>
+    
+    </ul>
+</nav>
+
+</header>
+
+            <section class="page__body">
+    <header class="content__header">
+        <h1>My thoughts on switching to vim bindings</h1>
+    </header>
+    <div class="content__body">
+        <p>Even though I have been using spacemacs as my daily driver for coding and
+writing blog posts like this one I have been using the traditional emacs
+keybindings.
+Going from &ldquo;normal&rdquo; keybindings to emacs felt like a great productivity boost,
+this made me wonder if maybe there is an even better option.
+Enter vim keybindings, in this post I will explain my experience switching to
+vim keybindings and what my
+thoughts are about it. I will not tech you how to use vim here,
+there are some great resources for that and I will mention some of them that I
+used to learn vim.</p>
+<h2 id="why-did-i-decide-to-switch-to-vim-keybindings">Why did I decide to switch to vim keybindings</h2>
+<p>As a software developer the keyboard is one of my most important tools.
+It allows me to transfer my thoughts from my brain to the computer.
+So it&rsquo;s important for me to use the keyboard in the best possible way.
+I&rsquo;m sure most developers don&rsquo;t give much thought into the keyboard layout, I
+know didn&rsquo;t spent a lot of time thinking about it. It was when I switched to
+emacs and started using it&rsquo;s keybindings that I really started to think about
+it. The keybindings in emacs felt much more effective then what I used before.
+So I decided that before I get too used to emacs keybindings I would try
+something else.
+This is when I decided to switch to vim keybindings.</p>
+<h2 id="learning-vim-my-initial-steps">Learning vim: my initial steps</h2>
+<p>I knew that using vim keybindings would be a big change, if you have ever
+accidentally opened vi and can&rsquo;t figure out how to exit
+then you understand what I mean.
+So I decided to find some tutorials to get me started.
+The first thing I tried was the evil-tutor in emacs, this is a great way to get
+a feel of the basics of vim.</p>
+<p>I also found an online &ldquo;game&rdquo; called vim-adventures, this I found as a great way
+to practice the muscle memory of using vim. You can find the game at
+<a href="https://vim-adventures.com/">https://vim-adventures.com/</a>. But in the end the only way to get good at using
+vim is to start using it in your daily life.</p>
+<p>My last learning resource that I want to present is the <a href="https://pragprog.com/titles/dnvim2/practical-vim-second-edition/">practical Vim</a>
+book. This is a great resource to learn plenty of neat tricks and tips
+for using vim keybindings.</p>
+<h2 id="what-i-like-with-vim">What I like with vim</h2>
+<p>Some people maybe think that vim keybindings is just a keyboard layout.
+But besides just different keys for things like copy and paste it also
+gives you a lot of new functionality.
+The biggest change is probably that vim uses different modes.
+When in normal mode you can&rsquo;t write any text, instead you can move the cursor
+and manipulate existing text. Visual mode lets you select text that you
+can then use normal mode to manipulate.
+If you want to type text then you enter insert
+mode by using either &lsquo;a&rsquo; or &lsquo;i&rsquo;. These two keys both enter the insert mode but
+&lsquo;a&rsquo; enter insert mode after the cursor and &lsquo;i&rsquo; enters insert mode before the
+cursor.
+These are not even all the ways to enter insert mode but the most basic.</p>
+<h3 id="my-favorite-commands">My favorite commands</h3>
+<p>There was one command that I quickly came to love and use a lot, that is the
+<strong>.</strong> key in normal mode. When in normal mode you can press <strong>.</strong> to repeat the
+last change that you did.
+This may at first not seem as that much until you realize how much one change
+can contain.
+An example is from normal mode press <code>cw</code> to delete a word and enter into
+<strong>insert mode</strong>, then type the word &lsquo;hello&rsquo; and press <code>&lt;ESC&gt;</code> to go back to normal mode.
+Now we can move the cursor to any word, press <code>.</code> to replace the word with
+the word &lsquo;hello&rsquo;, now you got can replace any word with the word &lsquo;hello&rsquo;
+just by pressing one button.</p>
+<h3 id="combining-commands">Combining commands</h3>
+<p>One of the strengths with the vim keybindings is that they can easily
+combined with each other.
+Lets look at another example for this, if we press the keys <code>dw</code> in
+<strong>normal mode</strong> we can delete the word under the cursor, you can read the
+keys as a shortcut for the words &ldquo;delete word&rdquo;. But if we add
+a number to this combination, <code>d2w</code>, then the current and next word will be
+delete, just like saying &ldquo;delete 2 words&rdquo;.</p>
+<h3 id="be-kind-to-your-pinkie-finger">Be kind to your pinkie finger</h3>
+<p>Using emacs keybindings make you stretch your little fingers a lot to press keys
+like <code>&lt;ctrl&gt;</code> and <code>&lt;alt&gt;</code>.
+Most people seem to have accepted this as a fact of life, just like I used to
+do. But once you start using vim you start to notice how much less you need
+to move your hands around the keyboard.</p>
+<h2 id="the-biggest-challenge">The biggest challenge</h2>
+<p>It took some time to get used to navigating using the keys <code>h</code>, <code>j</code>, <code>k</code> and
+<code>l</code>. I had the most problem with remembering <code>j</code> (down) and <code>k</code> (up) but
+I finally came up with the trick of thinking of &lsquo;j&rsquo; as an arrow pointing down.
+But ultimately this is just muscle memory.</p>
+<p>What really took a change in my mindset was two related things. The first
+was that while in <strong>insert mode</strong> I can move back and forth on the current line
+but I can&rsquo;t move vertically. For a while I was considering to add custom
+keybindings to allow this but I decided not to do that. I thought there
+probably was a reason for this and I should learn the reason before I decide
+to change it or not.</p>
+<p>This leads me to the second change of mindset, when do I press <code>&lt;ESC&gt;</code> to
+leave <strong>insert mode</strong> and enter <strong>normal mode</strong>? The first answer you will
+probably thing is &ldquo;when I&rsquo;m done inserting&rdquo;. While it is true that you should
+quit <strong>insert mode</strong> when you finish inserting but there are a lot more to take
+in to consideration.</p>
+<p>Earlier I talked about how using the <code>.</code> key repeats the last change, just like
+the key <code>u</code> undoes the last change. This is important because the process of
+entering <strong>insert mode</strong>, writing some text and then exiting <strong>insert mode</strong> counts
+as one change. In this way you can think of exiting <strong>insert mode</strong> and entering
+<strong>normal mode</strong> creates a checkpoint. Now you can repeat, undo or redo the undoes.</p>
+<p>When writing this text I will leave <strong>insert mode</strong> whenever I&rsquo;m finished
+with a paragraph or I need to stop and think, this way I can think of my
+inserts as chunks of text on a stack.</p>
+<h2 id="my-conclusion">My conclusion</h2>
+<p>Now after using vim keybindings I don&rsquo;t think I can ever go back.
+Not only does it let me write code and manipulate text faster but the decreased
+hand movements and stretching of the hand can have medical benefits.
+So would I recommend vim keybindings? Absolutely yes!</p>
+
+    </div>
+    <footer class="content__footer"></footer>
+
+            </section>
+
+            <section class="page__aside">
+                <div class="aside__about">
+<div class="aside__about">
+    
+<h1 class="about__title">Jens Lordén</h1>
+<p class="about__description">Code, ML, MLOps, data and coffee</p>
+</div>
+
+
+<ul class="aside__social-links">
+    
+    <li>
+        <a href="https://github.com/celsuss" rel="me" aria-label="GitHub" title="GitHub"><i class="fa-brands fa-github" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="mailto:jenslorden@gmail.com" rel="me" aria-label="Email" title="Email"><i class="fa-solid fa-envelope" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.linkedin.com/in/jens-lorden/" rel="me" aria-label="Linked In" title="Linked In"><i class="fab fa-linkedin" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://www.instagram.com/jenslorden" rel="me" aria-label="Instagram" title="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+    <li>
+        <a href="https://medium.com/@jenslorden" rel="me" aria-label="Medium" title="Medium"><i class="fab fa-medium" aria-hidden="true"></i></a>&nbsp;
+    </li>
+    
+</ul>
+</div>
+                <hr>
+                <div class="aside__content">
+    
+    
+        <p>
+            By [Jens], 
+            2024-01-24
+        </p>
+    
+
+                </div>
+            </section>
+
+            <footer class="page__footer"><p class="copyright"></p>
+<p class="advertisement">Powered by <a href="https://gohugo.io/">hugo</a> and <a href="https://github.com/joeroe/risotto">risotto</a>.</p>
+</footer>
+
+        </div>
+    </body>
+
+</html>
